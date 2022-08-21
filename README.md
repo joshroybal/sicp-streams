@@ -5,7 +5,7 @@ I ported the SICP code from MIT Scheme to CL, but periodically checked how badly
 I had gone astray at https://eli.thegreenplace.net/2007/11/05/sicp-sections-351-352<br>
 and https://irreal.org/blog/?p=3632 .<br>
 So far I have finding the nth prime and nth twin-prime pair as demos.<br>
-Many more that have not uploaded as of now.<br>
+Many more that have not been uploaded as of now.<br>
 Usage: sbcl --script nth-prime.lisp n<br>
 and<br>
 Usage: sbcl --script nth-twin-prime-pair.lisp n<br>
