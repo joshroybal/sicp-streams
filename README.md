@@ -16,6 +16,10 @@ sbcl --script nth-prime.lisp 4000
 </pre>
 <br>
 <pre>
-sbcl --script nth-twin-prime-pair 4000
+sbcl --script nth-twin-prime-pair.lisp 4000
 (424769. 424771)
 </pre>
+<br>
+<pre>
+sbcl --script nth-triangular.lisp 4000
+ 8002000
