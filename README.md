@@ -7,8 +7,8 @@ and https://irreal.org/blog/?p=3632 .<br>
 So far I have finding the nth prime and nth twin-prime pair as demos.<br>
 Many more that have not been uploaded as of now.<br>
 Usage: sbcl --script nth-prime.lisp n<br>
-and<br>
 Usage: sbcl --script nth-twin-prime-pair.lisp n<br>
+Usage: sbcl --script nth-triangular.lisp n<br>
 Example runs:
 <pre>
 sbcl --script nth-prime.lisp 4000
