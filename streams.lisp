@@ -17,6 +17,8 @@
            :add-streams
 	   :mul-streams
            :scale-stream
+           :power-stream
+	   :partial-sums
 	   :print-stream
    ))
 (in-package :streams)
@@ -136,3 +138,24 @@
        (out-stream s (stream-cdr out-stream)))
       ((or (>= k 1000) (stream-null-p out-stream)) 'done)
     (format t "~&~S" (stream-car out-stream))))
+
+(defun power-stream (n)
+  "Function constructs stream of non-negativepowers of n."
+  (let ((*ones* nil))
+    (progn
+      (setf *ones* (cons-stream 1 *ones*))
+      (stream-map #'expt (scale-stream n *ones*) (integers-starting-from 0)))))
+
+;; (defun partial-sums (s)
+;;   "Function constructs stream of partial-sums of n."
+;;   (let ((ps
+;; 	 (cons-stream (stream-car s) (add-streams (stream-cdr s) (partial-sums s)))))
+;;     ps))
+
+;;; Self-reference is neccessary in order to avoid re-calculation.
+(defun partial-sums (s)
+  "Function constructs stream of partial-sums of n."
+  (let ((*ps* nil))
+    (progn
+      (setf *ps* (cons-stream (stream-car s) (add-streams (stream-cdr s) *ps*)))
+      *ps*)))
