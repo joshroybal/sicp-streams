@@ -141,10 +141,10 @@
 
 (defun power-stream (n)
   "Function constructs stream of non-negativepowers of n."
-  (let ((*ones* nil))
+  (let ((ones nil))
     (progn
-      (setf *ones* (cons-stream 1 *ones*))
-      (stream-map #'expt (scale-stream n *ones*) (integers-starting-from 0)))))
+      (setf ones (cons-stream 1 ones))
+      (stream-map #'expt (scale-stream n ones) (integers-starting-from 0)))))
 
 ;; (defun partial-sums (s)
 ;;   "Function constructs stream of partial-sums of n."
@@ -155,7 +155,7 @@
 ;;; Self-reference is neccessary in order to avoid re-calculation.
 (defun partial-sums (s)
   "Function constructs stream of partial-sums of n."
-  (let ((*ps* nil))
+  (let ((ps nil))
     (progn
-      (setf *ps* (cons-stream (stream-car s) (add-streams (stream-cdr s) *ps*)))
-      *ps*)))
+      (setq ps (cons-stream (stream-car s) (add-streams (stream-cdr s) ps)))
+      ps)))
