@@ -1,6 +1,11 @@
 (defpackage :primes
   (:use :cl)
-  (:export :prime-p :twin-prime-p))
+  (:import-from :streams
+		:stream-car
+		:stream-cdr
+                :stream-filter
+                :integers-starting-from)  
+  (:export :prime-p :twin-prime-p :prime-factorization))
 (in-package :primes)
 
 ;;; primality predicate
@@ -22,3 +27,26 @@
   (cond ((not (prime-p n)) nil)
 	((or (prime-p (+ n 2)) (prime-p (- n 2))) t)
 	(t nil)))
+
+;;; prime-factorization procedure
+(defun prime-factorization (n)
+  "Procedure constructs list representing prime-factors of n."
+  (labels ((prime-factorization-recur (k primes-stream result)
+	     (cond ((equal (reduce #'* result) n)
+		    result)
+		   ((zerop (rem k (stream-car primes-stream)))
+		    (prime-factorization-recur
+		     (/ k (stream-car primes-stream))
+		     primes-stream
+		     (append result (list (stream-car primes-stream)))))
+		   (t
+		    (prime-factorization-recur
+		     k
+		     (stream-cdr primes-stream)
+		     result)))))
+    (if (prime-p n)
+	(list n)
+	(prime-factorization-recur
+	 n
+	 (stream-filter #'prime-p (integers-starting-from 2))
+	 nil))))
