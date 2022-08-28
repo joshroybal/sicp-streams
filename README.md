@@ -27,6 +27,7 @@ sbcl --script nth-twin-prime-pair.lisp 4000
 <pre>
 sbcl --script nth-triangular.lisp 4000
  8002000
+</pre>
 <br>
 <pre>
 sbcl --script prime-factorization.lisp 777
