@@ -34,6 +34,7 @@ sbcl --script prime-factorization.lisp 777
 (3 7 37)
 </pre>
 <br>
+<pre>
 sbcl --script prime-factorizations.lisp 20
  4 (2 2)
  6 (2 3)
