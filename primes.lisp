@@ -3,9 +3,17 @@
   (:import-from :streams
 		:stream-car
 		:stream-cdr
+		:stream-mapcar
                 :stream-filter
                 :integers-starting-from)  
-  (:export :prime-p :twin-prime-p :prime-factorization))
+  (:export
+   :prime-p
+   :twin-prime-p
+   :prime-factorization
+   :*primes*
+   :*composites*
+   :*prime-factorizations*
+   :*semiprimes*))
 (in-package :primes)
 
 ;;;
@@ -68,3 +76,24 @@
      n
      (stream-filter #'prime-p (integers-starting-from (smallest-divisor n)))
      nil)))
+
+(defvar *primes*)
+(defvar *composites*)
+(defvar *prime-factorizations*)
+(defvar *semiprimes*)
+
+(setf *primes* (stream-filter #'prime-p (integers-starting-from 2)))
+
+(setf *composites*
+      (stream-filter
+       #'(lambda (x) (not (prime-p x)))
+       (integers-starting-from 2)))
+
+(setf *prime-factorizations* (stream-mapcar #'prime-factorization *composites*))
+
+(setf *semiprimes*
+      (stream-mapcar
+       #'(lambda (x) (reduce #'* x))
+       (stream-filter
+	#'(lambda (x) (= (length x) 2))
+	*prime-factorizations*)))
