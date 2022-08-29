@@ -10,9 +10,11 @@ Usage: sbcl --script nth-prime.lisp n<br>
 Usage: sbcl --script nth-twin-prime-pair.lisp n<br>
 Usage: sbcl --script nth-triangular.lisp n<br>
 Below yields prime-factorization of n.<br>
-Usage: sbcl --script prime-factorization n<br>
+Usage: sbcl --script prime-factorization.lisp n<br>
 Below yields prime-factorizations of first n composite numbers.<br>
-Usage: sbcl --script prime-factorizations n<br>
+Usage: sbcl --script prime-factorizations.lisp n<br>
+Below yields first n semiprimes and their prime-factorization.<br>
+Usage: sbcl --script semiprimes.lisp n<br>
 Example runs:
 <pre>
 sbcl --script nth-prime.lisp 4000
@@ -56,4 +58,28 @@ sbcl --script prime-factorizations.lisp 20
  28 (2 2 7)
  30 (2 3 5)
  32 (2 2 2 2 2)
+</pre>
+<br>
+<pre>
+sbcl --script semiprimes.lisp 20
+ 4 (2 2)
+ 6 (2 3)
+ 9 (3 3)
+ 10 (2 5)
+ 14 (2 7)
+ 15 (3 5)
+ 21 (3 7)
+ 22 (2 11)
+ 25 (5 5)
+ 26 (2 13)
+ 33 (3 11)
+ 34 (2 17)
+ 35 (5 7)
+ 38 (2 19)
+ 39 (3 13)
+ 46 (2 23)
+ 49 (7 7)
+ 51 (3 17)
+ 55 (5 11)
+ 57 (3 19)
 </pre>
