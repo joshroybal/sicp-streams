@@ -30,8 +30,8 @@ sbcl --script nth-triangular.lisp 4000
 </pre>
 <br>
 <pre>
-sbcl --script prime-factorization.lisp 777
-(3 7 37)
+sbcl --script prime-factorization.lisp 281474976710619
+(3 3 1187 26347933793)
 </pre>
 <br>
 <pre>
