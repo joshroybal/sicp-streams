@@ -9,7 +9,7 @@
   (:export
    :prime-p
    :twin-prime-p
-   :prime-factorization
+   :factorize
    :*primes*
    :*composites*
    :*prime-factorizations*
@@ -50,29 +50,26 @@
 	(t nil)))
 
 ;;; prime-factorization procedure
-(defun prime-factorization (n)
-  "Procedure constructs list representing prime-factors of n."
-  (labels ((prime-factorization-recur (k primes-stream result)
-	     (cond ((equal (reduce #'* result) n)
-		    (reverse result))
-		   ((prime-p k)
-		    (prime-factorization-recur
-		     (/ k (reduce #'* result))
-		     (stream-filter
-		      #'prime-p
-		      (integers-starting-from (+ k 2)))
-		     (cons k result)))
+(defun factorize (n)
+  "Procedure constructs list representing prime factors of n."
+  (labels ((factorize-recur (k primes-stream result)
+	     (cond ((prime-p k)
+		    (reverse (cons k result)))
 		   ((divides-p (stream-car primes-stream) k)
-		    (prime-factorization-recur
+		    (factorize-recur
 		     (/ k (stream-car primes-stream))
 		     primes-stream
 		     (cons (stream-car primes-stream) result)))
 		   (t
-		    (prime-factorization-recur
-		     k
-		     (stream-cdr primes-stream)
-		     result)))))
-    (prime-factorization-recur
+		    (let ((sd (smallest-divisor k))
+			  (np (stream-car (stream-cdr primes-stream))))
+		      (if (<= sd np)
+			  (factorize-recur k (stream-cdr primes-stream) result)
+			  (factorize-recur
+			   k
+			   (stream-filter #'prime-p (integers-starting-from sd))
+			   result)))))))
+    (factorize-recur
      n
      (stream-filter #'prime-p (integers-starting-from (smallest-divisor n)))
      nil)))
@@ -89,7 +86,7 @@
        #'(lambda (x) (not (prime-p x)))
        (integers-starting-from 2)))
 
-(setf *prime-factorizations* (stream-mapcar #'prime-factorization *composites*))
+(setf *prime-factorizations* (stream-mapcar #'factorize *composites*))
 
 (setf *semiprimes*
       (stream-mapcar
