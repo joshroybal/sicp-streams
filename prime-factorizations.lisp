@@ -6,7 +6,7 @@
 (setf *n* (parse-integer (second *posix-argv*)))
 
 (setf *prime-factorizations-stream*
-      (streams:stream-mapcar #'primes:prime-factorization
+      (streams:stream-mapcar #'primes:factorize
 			     (streams:stream-filter
 			      (lambda (x) (not (primes:prime-p x)))
 			      (streams:integers-starting-from 2))))
