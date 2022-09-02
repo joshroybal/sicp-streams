@@ -2,4 +2,4 @@
 (load "primes")
 (defvar *n*)
 (setf *n* (parse-integer (second *posix-argv*)))
-(format t "~&~S" (primes:prime-factorization *n*))
+(format t "~&~S" (primes:factorize *n*))
